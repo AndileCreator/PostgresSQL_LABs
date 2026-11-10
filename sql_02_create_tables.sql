@@ -8,6 +8,17 @@ create_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 SELECT * FROM customers;
 
+INSERT INTO customers (first_name, last_name, email, phone)
+VALUES
+('Aisha', 'Khumalo', 'aisha3@example.com', '0710000001'),
+('Daniel', 'Mokoena', 'daniel2@example.com', '0720000002'),
+('Lona','Hans','hans097@gmail.com','0834209946'),
+('Andile','Magwaza','andile087@gmail.com','0663162637'),
+('Lethabo','Manama','manama@gmail.com','0987654321'),
+('Tshepo','Majoro','majoro@gmail.com','1234567890');
+
+SELECT * FROM customers;
+
 create table products (
 product_id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 product_name VARCHAR(100) NOT NULL,
@@ -16,6 +27,16 @@ price NUMERIC(10,2) NOT NULL CHECK (price >= 0),
 stock_quantity INTEGER NOT NULL DEFAULT 0 CHECK (stock_quantity >= 0),
 created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+SELECT * FROM products;
+
+INSERT INTO products (product_name, description, price, stock_quantity)
+VALUES
+('Wireless Mouse', 'Wired computer mouse', 249.99, 30),
+('Mechanical Keyboard', 'USB electrick keyboard', 899.00, 15),
+('USB-C Cable', 'Two metre USB-C cable', 99.50, 50),
+('TV','Led TV',1000.00,4),
+('Remote','Black remote',23.99,17),
+('Lights','Blue light',29.00,9);
 SELECT * FROM products;
 
 CREATE TABLE orders (
@@ -51,6 +72,33 @@ REFERENCES products(product_id),
 CONSTRAINT uq_order_product
 UNIQUE (order_id, product_id)
 );
+SELECT * FROM order_items;
+
+SELECT customer_id, first_name, last_name
+FROM customers
+ORDER BY customer_id;
+
+INSERT INTO orders (customer_id, status)
+VALUES
+(4, 'PAID'),
+(6, 'PENDING'),
+(7,'CANCELLED'),
+(8,'PAID');
+SELECT * FROM orders;
+
+SELECT order_id, customer_id, status FROM orders;
+SELECT product_id, product_name, price FROM products;
+
+INSERT INTO order_items (order_id, product_id, quantity, unit_price)
+VALUES
+(7,3,4,99.00),
+(8,4,3,249.00),
+(9,5,5,899.00),
+(10,6,2,99.00);
+
+SELECT * FROM customers;
+SELECT * FROM products;
+SELECT * FROM orders;
 SELECT * FROM order_items;
 
 --Checkpoint
